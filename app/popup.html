@@ -1,0 +1,124 @@
+<!doctype html>
+<html ng-csp>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="bower_components/intro.js/minified/introjs.min.css" rel="stylesheet">
+    <link href="bower_components/angularjs/angular-csp.css" rel="stylesheet">
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css styles/main.css -->
+    <link href="styles/main.css" rel="stylesheet">
+    <!-- endbuild -->
+</head>
+<body ng-controller="ItemCtrl">
+    <div class="container">
+        <div class="row">
+            <div class="page-header">
+                <h1>Priorize!</h1>
+            </div>
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong>Em desenvolvimento!</strong>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Tarefas</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <a href="" ng-click="orderProp = 'index'; reverse=!reverse" title="ID">#</a>
+                                    </th>
+                                    <th>
+                                        <a href="" ng-click="orderProp = 'text'; reverse=!reverse">Descrição</a>
+                                    </th>
+                                    <th>
+                                        <a href="" ng-click="orderProp = 'player.getRating()'; reverse=!reverse">Pontos</a>
+                                    </th>
+                                    <th>
+                                        <a href="" ng-click="orderProp = 'wins'; reverse=!reverse">Venceu</a>
+                                    </th>
+                                    <th>
+                                        <a href="" ng-click="orderProp = 'loses'; reverse=!reverse">Perdeu</a>
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <td><span class="badge">{{items.length}}</span></td>
+                                    <td id="step1">
+                                        <form ng-submit="addItem()" role="form" class="form-inline">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" ng-model="itemText" id="description" placeholder="Adicionar nova Tarefa">
+                                            </div>
+
+                                            <button id="step2" type="submit" class="btn btn-primary">Cadastrar</button>
+                                        </form>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                <tr ng-repeat="item in items | orderBy:orderProp:reverse">
+                                    <td>{{item.index}}</td>
+                                    <td>{{item.text}}</td>
+                                    <td>{{item.player.getRating()}}</td>
+                                    <td>{{item.wins}}</td>
+                                    <td>{{item.loses}}</td>
+                                    <td><button class="btn btn-info" ng-click="removeItem(item)">Remover</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="form">
+                    <button id="step3" class="btn btn-success" ng-show="player1 == null && player2 == null" ng-click="newTournament()">Priorizar!</button>
+
+                    <div class="battle" ng-show="player1 != null && player2 != null">
+                        <div>
+                            <button class="btn btn-danger player player1" ng-click="win(player1)">{{player1.text}}</button>
+                            <span> X </span>
+                            <button class="btn btn-danger player player2" ng-click="win(player2)">{{player2.text}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/angularjs/angular.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/glicko2/glicko2.js"></script>
+    <script src="bower_components/intro.js/minified/intro.min.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js scripts/popup.js -->
+    <script src="scripts/popup.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/app-intro.js"></script>
+    <!-- endbuild -->
+</body>
+</html>
